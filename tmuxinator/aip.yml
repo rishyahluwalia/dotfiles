@@ -1,0 +1,19 @@
+# /Users/rishyahluwalia/.config/tmuxinator/aip.yml
+name: aip
+root: ~/
+
+windows:
+  - AIP:
+      layout: tiled
+      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
+      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
+      # synchronize: after
+      panes:
+          - bash:
+              - cd ~/Documents/aip_assignment3/ && npm run client-proxy
+          - bash:
+              - cd ~/Documents/aip_assignment3/ && npm run server
+          - bash:
+              - cd ~/Documents/aip_assignment3/ && nvim server.js
+          - bash:
+              - htop
