@@ -32,7 +32,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'terryma/vim-multiple-cursors'
 call plug#end()
 
-" ==================== config section ==================== "
+" ==================== Config Section ==================== "
 syntax on 
 set termguicolors
 colorscheme onedark
