@@ -1,89 +1,183 @@
+" ============= Rishy's Neovim Configuration ============= "
+
+" Automatically install vim-plug
+if empty(glob('~/.nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
+
+" ==================== Plugin Section ==================== "
 call plug#begin("~/.vim/plugged")
-  " Plugin Section
-  Plug 'joshdick/onedark.vim'
-  Plug 'dracula/vim'
-  Plug 'scrooloose/nerdtree'
-  Plug 'ryanoasis/vim-devicons'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
-  Plug 'leafgarland/typescript-vim'
-  Plug 'peitalin/vim-jsx-typescript'
-  Plug 'maxmellon/vim-jsx-pretty'
-  Plug 'sheerun/vim-polyglot'
+    Plug 'joshdick/onedark.vim'
+    Plug 'scrooloose/nerdtree'
+    Plug 'xuyuanp/nerdtree-git-plugin'
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+    Plug 'vim-airline/vim-airline'
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'leafgarland/typescript-vim'
+    Plug 'peitalin/vim-jsx-typescript'
+    Plug 'maxmellon/vim-jsx-pretty'
+    "Plug 'pangloss/vim-javascript'
+    Plug 'yuezk/vim-js'
+    Plug 'quramy/tsuquyomi'
+    Plug 'tpope/vim-surround'
+    Plug 'preservim/nerdcommenter'
+    Plug 'airblade/vim-gitgutter/'
+    Plug 'tpope/vim-fugitive'
+    Plug 'jiangmiao/auto-pairs'
+    Plug 'terryma/vim-multiple-cursors'
 call plug#end()
-"Config Section
 
-
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (has("nvim"))
-        "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-        let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
-"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-if (has("termguicolors"))
-        set termguicolors
-endif
-
+" ==================== config section ==================== "
 syntax on 
+set termguicolors
 colorscheme onedark
 
-let g:vim_jsx_pretty_colorful_config = 1
-
-set number
+set encoding=utf-8
+"set number
 "set relativenumber
+set relativenumber number
 set cursorline
-" set cursorcolumn
-set tabstop=4
-set softtabstop=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set expandtab
 set showcmd
 set showmatch
 set incsearch
 set hlsearch
-set foldenable
-set foldlevelstart=10
-set foldnestmax=10
 set clipboard=unnamed
-nnoremap <space> za
-" move vertically by visual line
+set mouse=a
+set updatetime=100
+nnoremap <leader><space> :nohlsearch<CR>
+" open new split panes to right and below
+set splitright
+set splitbelow
+"set virtualedit=onemore
+" Move vertically by visual line
 nnoremap j gj
 nnoremap k gk
+nnoremap $ $l
+" Allows you to close current buffer and go to next available buffer
+map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
+" Open vimrc for edit
+nnoremap <leader>vi :e $MYVIMRC<CR>
+" Allows you to navigate buffers using [ and ]
+nnoremap <leader>[ :bp<CR>
+nnoremap <leader>] :bn<CR>
 
-" move to beginning/end of line
-nnoremap B ^
-nnoremap E $
-
-" $/^ doesn't do anything
-nnoremap $ <nop>
-nnoremap ^ <nop>
-" turn off search highlight
-nnoremap <leader><space> :nohlsearch<CR>
-
+" ==================== NerdTree Config ==================== " 
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
 let g:NERDTreeStatusline = ''
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" Toggle
+" Toggle NerdTree
 nnoremap <silent> <C-b> :NERDTreeToggle<CR>
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+" Make NerdTree stick to side when opening new tabs
+autocmd VimEnter * NERDTree
+autocmd BufWinEnter * NERDTreeMirror
+autocmd VimEnter * wincmd w
 
+" ==================== Airline Config ===================== "
+let g:airline#extensions#tabline#enabled = 1
+
+" ================== Fuzzy Search Config ================== "
 nnoremap <C-p> :FZF<CR>
+"let g:fzf_prefer_tmux = 1
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit'
   \}
+" Let fzf user the_silver_searcher as it's default engine
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+let $FZF_DEFAULT_OPTS='--color --no-reverse'
+" Allows you to search within files
+nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
+
+nnoremap <silent> K :call SearchWordWithAg()<CR>
+vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
+
+function! SearchWordWithAg()
+  execute 'Ag' expand('<cword>')
+endfunction
+
+function! SearchVisualSelectionWithAg() range
+  let old_reg = getreg('"')
+  let old_regtype = getregtype('"')
+  let old_clipboard = &clipboard
+  set clipboard&
+  normal! ""gvy
+  let selection = getreg('"')
+  call setreg('"', old_reg, old_regtype)
+  let &clipboard = old_clipboard
+  execute 'Ag' selection
+endfunction
+
+" ================ Coc Intellisense Config ================ "
+let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" ==================== Nerd Commenter ==================== "
+filetype plugin on
+
+" ==================== Newbie Crutches ==================== "
+" Remove newbie crutches in Command Mode
+cnoremap <Down> <Nop>
+cnoremap <Left> <Nop>
+cnoremap <Right> <Nop>
+cnoremap <Up> <Nop>
+
+" Remove newbie crutches in Insert Mode
+inoremap <Down> <Nop>
+inoremap <Left> <Nop>
+inoremap <Right> <Nop>
+inoremap <Up> <Nop>
+
+" Remove newbie crutches in Normal Mode
+nnoremap <Down> <Nop>
+nnoremap <Left> <Nop>
+nnoremap <Right> <Nop>
+nnoremap <Up> <Nop>
+
+" Remove newbie crutches in Visual Mode
+vnoremap <Down> <Nop>
+vnoremap <Left> <Nop>
+vnoremap <Right> <Nop>
+vnoremap <Up> <Nop>
