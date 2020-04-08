@@ -18,21 +18,22 @@ call plug#begin("~/.vim/plugged")
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'leafgarland/typescript-vim'
-    Plug 'peitalin/vim-jsx-typescript'
+    " js, jsx, ts, tsx syntax highlighters
+    Plug 'pangloss/vim-javascript'
     Plug 'maxmellon/vim-jsx-pretty'
-    "Plug 'pangloss/vim-javascript'
+    Plug 'peitalin/vim-jsx-typescript'
     Plug 'yuezk/vim-js'
-    Plug 'quramy/tsuquyomi'
+    " end syntax highlighters
     Plug 'tpope/vim-surround'
     Plug 'preservim/nerdcommenter'
     Plug 'airblade/vim-gitgutter/'
     Plug 'tpope/vim-fugitive'
     Plug 'jiangmiao/auto-pairs'
     Plug 'terryma/vim-multiple-cursors'
+    Plug 'psliwka/vim-smoothie'
 call plug#end()
 
-" ==================== Config Section ==================== "
+" ==================== config section ==================== "
 syntax on 
 set termguicolors
 colorscheme onedark
@@ -52,7 +53,8 @@ set incsearch
 set hlsearch
 set clipboard=unnamed
 set mouse=a
-set updatetime=100
+set lazyredraw
+set updatetime=4000
 nnoremap <leader><space> :nohlsearch<CR>
 " open new split panes to right and below
 set splitright
@@ -61,7 +63,7 @@ set splitbelow
 " Move vertically by visual line
 nnoremap j gj
 nnoremap k gk
-nnoremap $ $l
+
 " Allows you to close current buffer and go to next available buffer
 map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 " Open vimrc for edit
@@ -80,12 +82,14 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " Toggle NerdTree
 nnoremap <silent> <C-b> :NERDTreeToggle<CR>
 " Make NerdTree stick to side when opening new tabs
-autocmd VimEnter * NERDTree
-autocmd BufWinEnter * NERDTreeMirror
-autocmd VimEnter * wincmd w
+"autocmd VimEnter * NERDTree
+"autocmd BufWinEnter * NERDTreeMirror
+"autocmd VimEnter * wincmd w
 
 " ==================== Airline Config ===================== "
 let g:airline#extensions#tabline#enabled = 1
+" Just show the filename (no path) in the tab
+let g:airline#extensions#tabline#fnamemod = ':t'
 
 " ================== Fuzzy Search Config ================== "
 nnoremap <C-p> :FZF<CR>
@@ -101,8 +105,8 @@ let $FZF_DEFAULT_OPTS='--color --no-reverse'
 " Allows you to search within files
 nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
 
-nnoremap <silent> K :call SearchWordWithAg()<CR>
-vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
+"nnoremap <silent> K :call SearchWordWithAg()<CR>
+"vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
 
 function! SearchWordWithAg()
   execute 'Ag' expand('<cword>')
@@ -158,26 +162,26 @@ nmap <silent> gr <Plug>(coc-references)
 filetype plugin on
 
 " ==================== Newbie Crutches ==================== "
-" Remove newbie crutches in Command Mode
-cnoremap <Down> <Nop>
-cnoremap <Left> <Nop>
-cnoremap <Right> <Nop>
-cnoremap <Up> <Nop>
+"" Remove newbie crutches in Command Mode
+"cnoremap <Down> <Nop>
+"cnoremap <Left> <Nop>
+"cnoremap <Right> <Nop>
+"cnoremap <Up> <Nop>
 
-" Remove newbie crutches in Insert Mode
-inoremap <Down> <Nop>
-inoremap <Left> <Nop>
-inoremap <Right> <Nop>
-inoremap <Up> <Nop>
+"" Remove newbie crutches in Insert Mode
+"inoremap <Down> <Nop>
+"inoremap <Left> <Nop>
+"inoremap <Right> <Nop>
+"inoremap <Up> <Nop>
 
-" Remove newbie crutches in Normal Mode
-nnoremap <Down> <Nop>
-nnoremap <Left> <Nop>
-nnoremap <Right> <Nop>
-nnoremap <Up> <Nop>
+"" Remove newbie crutches in Normal Mode
+"nnoremap <Down> <Nop>
+"nnoremap <Left> <Nop>
+"nnoremap <Right> <Nop>
+"nnoremap <Up> <Nop>
 
-" Remove newbie crutches in Visual Mode
-vnoremap <Down> <Nop>
-vnoremap <Left> <Nop>
-vnoremap <Right> <Nop>
-vnoremap <Up> <Nop>
+"" Remove newbie crutches in Visual Mode
+"vnoremap <Down> <Nop>
+"vnoremap <Left> <Nop>
+"vnoremap <Right> <Nop>
+"vnoremap <Up> <Nop>
