@@ -9,16 +9,19 @@ endif
 
 " ==================== Plugin Section ==================== "
 call plug#begin("~/.vim/plugged")
+    Plug 'lifepillar/vim-solarized8'
     Plug 'joshdick/onedark.vim'
     Plug 'scrooloose/nerdtree'
     Plug 'xuyuanp/nerdtree-git-plugin'
     Plug 'ryanoasis/vim-devicons'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
     Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     " js, jsx, ts, tsx syntax highlighters
+    Plug 'HerringtonDarkholme/yats.vim'
     Plug 'pangloss/vim-javascript'
     Plug 'maxmellon/vim-jsx-pretty'
     Plug 'peitalin/vim-jsx-typescript'
@@ -34,9 +37,23 @@ call plug#begin("~/.vim/plugged")
 call plug#end()
 
 " ==================== config section ==================== "
+if (has("nvim"))
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+
+if (has("termguicolors"))
+  set termguicolors
+endif
+
 syntax on 
-set termguicolors
-colorscheme onedark
+set background=dark
+colorscheme solarized8
+
+" Persistent undo
+set undofile
+set undodir=$HOME/.vim/undo
+set undolevels=1000
+set undoreload=10000
 
 set encoding=utf-8
 "set number
@@ -54,16 +71,13 @@ set hlsearch
 set clipboard=unnamed
 set mouse=a
 set lazyredraw
-set updatetime=4000
 nnoremap <leader><space> :nohlsearch<CR>
 " open new split panes to right and below
 set splitright
 set splitbelow
-"set virtualedit=onemore
 " Move vertically by visual line
 nnoremap j gj
 nnoremap k gk
-
 " Allows you to close current buffer and go to next available buffer
 map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 " Open vimrc for edit
@@ -90,6 +104,7 @@ nnoremap <silent> <C-b> :NERDTreeToggle<CR>
 let g:airline#extensions#tabline#enabled = 1
 " Just show the filename (no path) in the tab
 let g:airline#extensions#tabline#fnamemod = ':t'
+"let g:airline_theme='one'
 
 " ================== Fuzzy Search Config ================== "
 nnoremap <C-p> :FZF<CR>
@@ -159,7 +174,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 " ==================== Nerd Commenter ==================== "
-filetype plugin on
+"filetype plugin on
 
 " ==================== Newbie Crutches ==================== "
 "" Remove newbie crutches in Command Mode
