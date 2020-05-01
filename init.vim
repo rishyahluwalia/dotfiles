@@ -13,13 +13,13 @@ call plug#begin("~/.vim/plugged")
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    " js, jsx, ts, tsx syntax highlighters
+    " ===== js, jsx, ts, tsx syntax highlighters ===== "
     Plug 'HerringtonDarkholme/yats.vim'
     Plug 'pangloss/vim-javascript'
     Plug 'maxmellon/vim-jsx-pretty'
     Plug 'peitalin/vim-jsx-typescript'
     Plug 'yuezk/vim-js'
-    " end syntax highlighters
+    " ===== end syntax highlighters ===== "
     Plug 'tpope/vim-surround'
     Plug 'preservim/nerdcommenter'
     Plug 'airblade/vim-gitgutter/'
@@ -27,6 +27,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'jiangmiao/auto-pairs'
     Plug 'terryma/vim-multiple-cursors'
     Plug 'psliwka/vim-smoothie'
+    Plug 'bronson/vim-trailing-whitespace'
 call plug#end()
 
 " ==================== config section ==================== "
@@ -38,7 +39,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-syntax on 
+syntax on
 set background=dark
 colorscheme onedark
 
@@ -62,11 +63,13 @@ set hlsearch
 set clipboard=unnamed
 set mouse=a
 set updatetime=300
-"set lazyredraw
+set lazyredraw
 nnoremap <leader><space> :nohlsearch<CR>
-" ===== Opens new split panes to the right and below instead of left and above ===== " 
+" ===== Opens new split panes to the right and below instead of left and above ===== "
 set splitright
 set splitbelow
+" ===== Give more space for displaying messages. ===== "
+set cmdheight=2
 " ===== Move vertically by visual line ===== "
 nnoremap j gj
 nnoremap k gk
@@ -77,8 +80,10 @@ nnoremap <leader>vi :e $MYVIMRC<CR>
 " ===== Allows you to navigate buffers using [ and ] ===== "
 nnoremap <leader>[ :bp<CR>
 nnoremap <leader>] :bn<CR>
+" ===== Save files without auto formatting ===== "
+nnoremap <leader>w :CocDisable<CR>:w<CR>:CocEnable<CR>
 
-" ==================== NerdTree Config ==================== " 
+" ==================== NerdTree Config ==================== "
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
@@ -99,7 +104,8 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_theme='onedark'
 
 " ================== Fuzzy Search Config ================== "
-nnoremap <C-p> :FZF<CR>
+nnoremap <C-p> :Files<CR>
+nnoremap <C-f> :Buffers<CR>
 "let g:fzf_prefer_tmux = 1
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
@@ -129,8 +135,13 @@ endfunction
 " ===== Use <c-space> to trigger completion. ===== "
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" ===== Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position. ===== "
-inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+" ===== Use <cr> to confirm completion ===== "
+" ===== `<C-g>u` means break undo chain at current position. ===== "
+if exists('*complete_info')
+    inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+    imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
 
 " ===== Use `[g` and `]g` to navigate diagnostics ===== "
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
