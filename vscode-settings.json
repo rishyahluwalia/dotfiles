@@ -1,32 +1,29 @@
 {
   "workbench.iconTheme": "material-icon-theme",
   "window.zoomLevel": 1,
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "workbench.colorTheme": "One Dark Pro",
   "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.renderSideBySide": true,
   "editor.suggestSelection": "first",
   "terminal.integrated.shell.osx": "/usr/local/bin/fish",
   "terminal.integrated.rendererType": "dom",
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "editor.formatOnSave": true,
-  "workbench.activityBar.visible": false,
+  "workbench.activityBar.visible": true,
   "editor.minimap.enabled": false,
   "editor.lineNumbers": "relative",
   "breadcrumbs.enabled": false,
-  "search.searchOnType": true,
   "workbench.colorCustomizations": {
     "[One Dark Pro]": {
-      "sideBar.background": "#1e2229",
-      "editor.background": "#181b21"
+      "sideBar.background": "#242830",
+      "editor.background": "#1f2229"
     },
     "scrollbar.shadow": "#ffffff00",
     "widget.shadow": "#ffffff00"
   },
   "vim.easymotion": true,
-  "explorer.openEditors.visible": 0
+  "explorer.openEditors.visible": 0,
+  "workbench.statusBar.visible": true,
+  "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\wsl.exe",
+  "projectManager.git.baseFolders": ["C:\\Users\\m051077\\repositories"]
 }
-
