@@ -33,7 +33,11 @@
   },
   {
     "key": "ctrl+shift+g",
+<<<<<<< HEAD
     "command": "workbench.view.scm"
+=======
+    "command": "workbench.view.extension.gitlens"
+>>>>>>> 056df5b... added shortcuts for activity bar and search
   },
   {
     "key": "ctrl+b a",
@@ -64,6 +68,7 @@
     "command": "workbench.action.showCommands"
   },
   {
+<<<<<<< HEAD
     "key": "ctrl+b o",
     "command": "projectManager.listProjects"
   },
@@ -72,6 +77,8 @@
     "command": "projectManager.listProjectsNewWindow"
   },
   {
+=======
+>>>>>>> 056df5b... added shortcuts for activity bar and search
     "key": "ctrl+b b",
     "command": "breadcrumbs.toggle",
     "when": "editorTextFocus && !editorReadonly"
@@ -104,6 +111,10 @@
     "key": "ctrl+b c",
     "command": "workbench.action.terminal.new"
   },
+<<<<<<< HEAD
+=======
+  // Navigation
+>>>>>>> 056df5b... added shortcuts for activity bar and search
   {
     "key": "ctrl+[",
     "command": "workbench.action.previousEditor"
