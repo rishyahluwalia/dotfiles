@@ -1,5 +1,4 @@
 [
-  // Multi Cursors
   {
     "key": "ctrl+n",
     "command": "editor.action.addSelectionToNextFindMatch"
@@ -12,10 +11,29 @@
     "key": "ctrl+shift+up",
     "command": "editor.action.insertCursorAbove"
   },
-  // Toggling screen elements
   {
     "key": "ctrl+b e",
     "command": "workbench.action.toggleSidebarVisibility"
+  },
+  {
+    "key": "ctrl+f",
+    "command": "actions.find"
+  },
+  {
+    "key": "ctrl+shift+f",
+    "command": "workbench.view.search"
+  },
+  {
+    "key": "ctrl+shift+x",
+    "command": "workbench.view.extensions"
+  },
+  {
+    "key": "ctrl+shift+e",
+    "command": "workbench.view.explorer"
+  },
+  {
+    "key": "ctrl+shift+g",
+    "command": "workbench.view.scm"
   },
   {
     "key": "ctrl+b a",
@@ -45,7 +63,47 @@
     "key": "ctrl+shift+p",
     "command": "workbench.action.showCommands"
   },
-  // Navigation
+  {
+    "key": "ctrl+b o",
+    "command": "projectManager.listProjects"
+  },
+  {
+    "key": "ctrl+b shift+o",
+    "command": "projectManager.listProjectsNewWindow"
+  },
+  {
+    "key": "ctrl+b b",
+    "command": "breadcrumbs.toggle",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+b s",
+    "command": "workbench.action.toggleStatusbarVisibility"
+  },
+  {
+    "key": "ctrl+b w",
+    "command": "workbench.action.files.saveWithoutFormatting"
+  },
+  {
+    "key": "ctrl+b 1",
+    "command": "workbench.action.terminal.focusAtIndex1"
+  },
+  {
+    "key": "ctrl+b 2",
+    "command": "workbench.action.terminal.focusAtIndex2"
+  },
+  {
+    "key": "ctrl+b 3",
+    "command": "workbench.action.terminal.focusAtIndex3"
+  },
+  {
+    "key": "ctrl+b 4",
+    "command": "workbench.action.terminal.focusAtIndex4"
+  },
+  {
+    "key": "ctrl+b c",
+    "command": "workbench.action.terminal.new"
+  },
   {
     "key": "ctrl+[",
     "command": "workbench.action.previousEditor"
@@ -112,11 +170,6 @@
   {
     "key": "ctrl+/",
     "command": "editor.action.commentLine",
-    "when": "editorTextFocus && !editorReadonly"
-  },
-  {
-    "key": "ctrl+b b",
-    "command": "breadcrumbs.toggle",
     "when": "editorTextFocus && !editorReadonly"
   },
   {
