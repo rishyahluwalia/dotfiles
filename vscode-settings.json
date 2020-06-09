@@ -1,0 +1,32 @@
+{
+  "workbench.iconTheme": "material-icon-theme",
+  "window.zoomLevel": 1,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.colorTheme": "One Dark Pro",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.suggestSelection": "first",
+  "terminal.integrated.shell.osx": "/usr/local/bin/fish",
+  "terminal.integrated.rendererType": "dom",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
+  "workbench.activityBar.visible": false,
+  "editor.minimap.enabled": false,
+  "editor.lineNumbers": "relative",
+  "breadcrumbs.enabled": false,
+  "search.searchOnType": true,
+  "workbench.colorCustomizations": {
+    "[One Dark Pro]": {
+      "sideBar.background": "#1e2229",
+      "editor.background": "#181b21"
+    },
+    "scrollbar.shadow": "#ffffff00",
+    "widget.shadow": "#ffffff00"
+  },
+  "vim.easymotion": true,
+  "explorer.openEditors.visible": 0
+}
+
