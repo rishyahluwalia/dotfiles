@@ -143,19 +143,9 @@
     "when": "terminalFocus"
   },
   {
-    "key": "ctrl+k",
-    "command": "workbench.files.action.focusOpenEditorsView",
-    "when": "sideBarFocus && explorerViewletVisible"
-  },
-  {
     "key": "ctrl+b shift+4",
     "command": "workbench.action.terminal.rename",
     "when": "terminalFocus"
-  },
-  {
-    "key": "ctrl+j",
-    "command": "workbench.files.action.focusFilesExplorer",
-    "when": "sideBarFocus && explorerViewletVisible && !filesExplorerFocus"
   },
   {
     "key": "ctrl+b shift+\\",
@@ -170,6 +160,11 @@
   {
     "key": "ctrl+/",
     "command": "editor.action.commentLine",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+shift+/",
+    "command": "editor.action.blockComment",
     "when": "editorTextFocus && !editorReadonly"
   },
   {
