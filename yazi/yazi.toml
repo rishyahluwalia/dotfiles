@@ -1,0 +1,47 @@
+[manager]
+sort_dir_first = false
+
+[opener]
+edit = [
+  { run = 'nvim "$@"', block = true, for = "unix" },
+]
+play = [
+  { run = 'open "$@"', for = "macos" },
+]
+reveal = [
+  { run = 'open -R "$@"', for = "macos" },
+]
+
+[open]
+rules = [
+  # Directories
+  { name = "*/", use = "edit" },
+
+  # Text and code
+  { mime = "text/*", use = "edit" },
+  { mime = "application/json", use = "edit" },
+  { mime = "application/xml", use = "edit" },
+  { mime = "application/javascript", use = "edit" },
+  { mime = "application/typescript", use = "edit" },
+  { mime = "application/x-yaml", use = "edit" },
+  { mime = "application/toml", use = "edit" },
+  { mime = "application/x-sh", use = "edit" },
+
+  # Images, video, audio — open natively
+  { mime = "image/*", use = "play" },
+  { mime = "video/*", use = "play" },
+  { mime = "audio/*", use = "play" },
+
+  # PDFs and docs
+  { mime = "application/pdf", use = "play" },
+  { mime = "application/vnd.*", use = "play" },
+
+  # Archives — open natively (Archive Utility)
+  { mime = "application/zip", use = "play" },
+  { mime = "application/gzip", use = "play" },
+  { mime = "application/x-tar", use = "play" },
+  { mime = "application/x-7z-compressed", use = "play" },
+
+  # Fallback — open in nvim
+  { name = "*", use = "edit" },
+]

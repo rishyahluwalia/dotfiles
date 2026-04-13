@@ -1,0 +1,16 @@
+# /Users/rishy/.config/tmuxinator/honey.yml
+name: honey
+root: ~/
+
+windows:
+  - quote-zebra:
+      layout: even-horizontal
+      panes:
+        - authqz
+        - ~
+      # Focus a pane by name or index. Indices are based off zero and automatically adjusted to your pane-base-index.
+      # focused_pane: editor
+      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
+      # synchronize: after
+  - honeycomb: cdhc && nvim
+  - honeycomb-web: cdhcw && nvim
