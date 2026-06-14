@@ -1,0 +1,115 @@
+# Alacritty config — ported from iTerm2 ("Default" profile)
+# Source: ~/Downloads/iTerm2 State.itermexport
+#
+# To use: symlink to ~/.config/alacritty/alacritty.toml, e.g.
+#   ln -s ~/code/personal/dotfiles/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml
+# Docs: https://alacritty.org/config-alacritty.html
+#
+# Lines marked "NEEDS INVESTIGATION" have no clean Alacritty equivalent.
+# (The old repo-root alacritty.yml is the deprecated YAML format — Alacritty
+#  reads TOML now, so this file supersedes it.)
+
+[window]
+# iTerm Transparency = 0.10  ->  opacity = 1 - 0.10
+opacity = 0.9
+# iTerm Blur = on. Alacritty's blur is a boolean (macOS); the iTerm "Blur
+# Radius = 20" has no equivalent. NEEDS INVESTIGATION if you want a specific radius.
+blur = true
+# iTerm initial size: Columns = 80, Rows = 25
+dimensions = { columns = 80, lines = 25 }
+# iTerm global TerminalVMargin = 0 (no padding)
+padding = { x = 0, y = 0 }
+# iTerm: Left Option = "Esc+" (Meta), Right Option = "Normal"
+option_as_alt = "OnlyLeft"
+
+[font]
+# iTerm: "JetBrainsMonoNF-Regular 16"
+size = 16.0
+# NOTE: Alacritty does NOT support font ligatures at all. Your iTerm profile had
+# ligatures ON (JetBrainsMono's =>, !=, etc. will render as plain glyphs here).
+# This is a hard Alacritty limitation, not a config gap.
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style = "Italic"
+
+[font.bold_italic]
+family = "JetBrainsMono Nerd Font"
+style = "Bold Italic"
+
+# iTerm "Thin Strokes" (macOS anti-aliasing) has no Alacritty equivalent.
+# NEEDS INVESTIGATION.
+
+[cursor]
+# iTerm Blinking Cursor = off; default shape is block.
+style = { shape = "Block", blinking = "Off" }
+
+[scrolling]
+# iTerm "Unlimited Scrollback" = on. Alacritty has no "unlimited"; 100000 is the
+# documented maximum. NEEDS INVESTIGATION if you want true unlimited (not possible).
+history = 100000
+
+[colors]
+# iTerm "Use Bright Bold" = on
+draw_bold_text_with_bright_colors = true
+
+[colors.primary]
+background = "#0E0E0E"
+foreground = "#CCCCCC"
+# iTerm "Bold Color" = white (used for bold text via bright_foreground)
+bright_foreground = "#FFFFFF"
+
+[colors.cursor]
+text = "#000000"
+cursor = "#FFFFFF"
+
+[colors.selection]
+text = "#E0E0E0"
+background = "#1E5CAE"
+
+# Normal colors (ANSI 0–7)
+[colors.normal]
+black = "#000000"
+red = "#CD3131"
+green = "#0DBC79"
+yellow = "#E5E510"
+blue = "#2472C8"
+magenta = "#BC3FBC"
+cyan = "#11A8CD"
+white = "#E5E5E5"
+
+# Bright colors (ANSI 8–15)
+[colors.bright]
+black = "#666666"
+red = "#F14C4C"
+green = "#23D18B"
+yellow = "#F5F543"
+blue = "#3B8EEA"
+magenta = "#D670D6"
+cyan = "#29B8DB"
+white = "#E5E5E5"
+
+# iTerm "Report Terminal Type" = xterm-256color. Alacritty's default TERM is
+# "alacritty" (richer; recommended if its terminfo is installed). Uncomment to
+# force the iTerm value:
+# [env]
+# TERM = "xterm-256color"
+
+# ─── No Alacritty equivalent — NEEDS INVESTIGATION ───────────────────────────
+#   Ligatures: not supported by Alacritty (see [font] note above).
+#   Color space / display-p3: Alacritty has no colorspace control, so colors may
+#     look less saturated than iTerm on wide-gamut displays (same issue we hit in
+#     Ghostty, but Ghostty had window-colorspace to fix it; Alacritty does not).
+#   Blur radius: Alacritty blur is on/off only.
+#   "Only default bg color uses transparency": opacity is whole-window only.
+#   Link / Badge / Cursor-guide colors: iTerm-only, no equivalent.
+#   Visual/flashing bell: Alacritty has a [bell] section (animation/color/
+#     duration/command) but no direct 1:1 mapping — configure to taste.

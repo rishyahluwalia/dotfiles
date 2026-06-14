@@ -1,0 +1,145 @@
+# Ghostty config — ported from iTerm2 ("Default" profile)
+# Source: ~/Downloads/iTerm2 State.itermexport
+#
+# To use: copy/symlink this to ~/.config/ghostty/config (Ghostty's real config
+# file has NO extension). e.g.  ln -s "$PWD/config.ghostty" ~/.config/ghostty/config
+# Docs: https://ghostty.org/docs/config
+#
+# Lines marked "NEEDS INVESTIGATION" have no clean Ghostty equivalent — look
+# into them yourself. Everything else maps 1:1 from your iTerm2 prefs.
+
+# ─── Font ───────────────────────────────────────────────────────────────────
+# iTerm: Normal Font = "JetBrainsMonoNF-Regular 16"
+# Verify the exact family name Ghostty sees with:  ghostty +list-fonts
+font-family = "JetBrainsMono Nerd Font"
+font-size = 15
+
+# Taller rows (makes the tmux status bar chunkier). CAVEAT: a terminal grid has
+# ONE uniform cell height, so this enlarges EVERY row — there is no way to make
+# only the status-bar row taller. The glyph stays font-size'd and centers
+# vertically, so the extra height becomes line spacing. Value is a delta
+# (30% = 30% taller, not absolute). Tune to taste; reload with Cmd+Shift+,.
+adjust-cell-height = 10%
+
+# iTerm "Use Bright Bold" = on
+bold-is-bright = true
+
+# iTerm "Thin Strokes" was set to "always". Ghostty has no thin-stroke control,
+# only the inverse (font-thicken). false = no thickening = thinnest rendering,
+# which is the closest match.
+font-thicken = false
+
+# iTerm ASCII/Non-ASCII Ligatures = on. Ghostty enables ligatures (calt/liga)
+# by default for fonts that support them, so nothing to set.
+# To DISABLE later:  font-feature = -calt, -liga, -dlig
+
+# NEEDS INVESTIGATION: iTerm had a separate Non-ASCII font
+# (JetBrainsMonoNFM-Regular 20) but "Use Non-ASCII Font" was OFF, so it was
+# unused. Ghostty uses font-family + automatic fallback instead.
+
+# ─── Colors ─────────────────────────────────────────────────────────────────
+# (This is essentially the VS Code dark ANSI palette.)
+
+# Color space: matches iTerm2's more-saturated look on wide-gamut (P3) Macs.
+# Ghostty defaults to "srgb" (properly color-managed), which looks washed out
+# next to iTerm2 — most noticeable inside Neovim where saturated truecolor
+# syntax dominates. "display-p3" interprets colors in the display's native
+# gamut like iTerm2 does. (Effect depends on having a P3 display.)
+window-colorspace = display-p3
+
+background = #0E0E0E
+foreground = #CCCCCC
+
+# Normal colors (ANSI 0–7)
+palette = 0=#000000
+palette = 1=#CD3131
+palette = 2=#0DBC79
+palette = 3=#E5E510
+palette = 4=#2472C8
+palette = 5=#BC3FBC
+palette = 6=#11A8CD
+palette = 7=#E5E5E5
+
+# Bright colors (ANSI 8–15)
+palette = 8=#666666
+palette = 9=#F14C4C
+palette = 10=#23D18B
+palette = 11=#F5F543
+palette = 12=#3B8EEA
+palette = 13=#D670D6
+palette = 14=#29B8DB
+palette = 15=#E5E5E5
+
+# Cursor (iTerm: Cursor Color / Cursor Text Color; Blinking Cursor = off)
+cursor-color = #FFFFFF
+cursor-text = #000000
+cursor-style = block
+cursor-style-blink = false
+
+# Selection (iTerm: Selection Color / Selected Text Color)
+selection-background = #1E5CAE
+selection-foreground = #E0E0E0
+
+# theme = Rose Pine
+# theme = TokyoNight Night
+# theme = Dark Modern
+# theme = Atom One Dark
+
+# NEEDS INVESTIGATION — no Ghostty equivalent for these iTerm colors:
+#   Bold Color        = #FFFFFF (custom bold text color; bold-is-bright is set instead)
+#   Link Color        = #005CBB
+#   Badge Color        = #FF2600 @ 50% (badges are iTerm-only)
+#   Cursor Guide Color = #B3ECFF @ 25%
+
+# ─── Transparency / blur ─────────────────────────────────────────────────────
+# iTerm Transparency = 0.10  ->  opacity = 1 - 0.10 = 0.90
+background-opacity = 0.90
+# iTerm Blur = on, Blur Radius = 20
+background-blur = 20
+# NEEDS INVESTIGATION: iTerm "Only the default background color uses
+# transparency" = on. Ghostty applies opacity to the whole background; there's
+# no per-cell-color transparency toggle.
+
+# ─── Window ──────────────────────────────────────────────────────────────────
+# iTerm initial size: Columns = 80, Rows = 25 (Ghostty measures in grid cells)
+window-width = 80
+window-height = 25
+
+# iTerm global "TerminalVMargin" = 0 (no top/bottom padding). Horizontal
+# padding left at Ghostty's default.
+window-padding-y = 0
+
+# iTerm "Prompt before closing" = off
+confirm-close-surface = false
+
+# iTerm Working Directory: "Home Directory"
+working-directory = home
+
+# ─── Keyboard ────────────────────────────────────────────────────────────────
+# iTerm: Left Option = "Esc+" (Meta), Right Option = "Normal"
+macos-option-as-alt = left
+# Note: your iTerm Keyboard Map was the stock default profile mapping (option
+# word-jumps, function keys, etc.) — no custom bindings. Ghostty implements
+# these natively, so nothing to port.
+
+# ─── Terminal ────────────────────────────────────────────────────────────────
+# iTerm "Report Terminal Type" = xterm-256color.
+# Ghostty's own default is "xterm-ghostty" (richer; recommended if your
+# terminfo is installed). Uncomment the next line only if you specifically need
+# the iTerm value:
+# term = xterm-256color
+term = xterm-ghostty
+
+# iTerm "Unlimited Scrollback" = on. Ghostty's scrollback-limit is in BYTES
+# (not lines) and has no true "unlimited" — this sets a large ~512MB buffer.
+# NEEDS INVESTIGATION: tune to taste.
+scrollback-limit = 536870912
+
+# ─── No Ghostty equivalent (iTerm-specific) — NEEDS INVESTIGATION ────────────
+#   Visual Bell / Flashing Bell / Bounce dock (BM Growl): Ghostty bell support
+#     is limited — see https://ghostty.org/docs/config/reference#bell-features
+#   Hide scrollbar: Ghostty has no scrollbar at all (n/a).
+#   UseMetal / GPU rendering: Ghostty always uses Metal on macOS (n/a).
+#   Tab bar style (TabStyleWithAutomaticOption, ShowFullScreenTabBar): Ghostty
+#     uses native macOS tabs; see macos-titlebar-style / window-* options.
+#   Touch Bar Esc feedback (Haptic/Sound/Visual): n/a.

@@ -1,16 +1,87 @@
 # /Users/rishy/.config/tmuxinator/honey.yml
+# Start with: tmuxinator start honey
+#
+# Every repo window (and "config") uses this 3-pane layout, captured from the
+# live "honeycomb" window:
+#
+#   ┌──────────────┬────────┐
+#   │ nvim         │        │
+#   ├──────────────┤ claude │   right pane = full height
+#   │ (empty shell)│        │
+#   └──────────────┴────────┘
+#
+# The geometry lives in one raw tmux layout string (tmuxinator supports no
+# percentages/nested panes — only this or the 5 named layouts). It's defined
+# once below as the `&repo_layout` anchor and reused via `*repo_layout`, so to
+# retune sizes you change it in ONE place. To regenerate it: open a window, drag
+# the panes to taste, then run:
+#     tmux display-message -p '#{window_layout}'
+# and paste the result (including the leading checksum) here.
+#
+# Panes map to the layout cells in order: 0 = top-left, 1 = bottom-left, 2 = right.
+
 name: honey
 root: ~/
 
+# Focus this window on startup instead of the first one. "honeycomb" is window 2
+# (base-index is 1, so quote-zebra is 1). By name rather than index so it follows
+# the window if the list is reordered.
+startup_window: honeycomb
+
 windows:
+  # Standard vertical (left | right) split.
   - quote-zebra:
       layout: even-horizontal
       panes:
-        - authqz
+        # - authqz
         - ~
-      # Focus a pane by name or index. Indices are based off zero and automatically adjusted to your pane-base-index.
-      # focused_pane: editor
-      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
-      # synchronize: after
-  - honeycomb: cdhc && nvim
-  - honeycomb-web: cdhcw && nvim
+        - ~
+
+  - honeycomb:
+      layout: &repo_layout "ca21,269x61,0,0{169x61,0,0[169x46,0,0,2,169x14,0,47,34],99x61,170,0,8}"
+      panes:
+        - cdhc && nvim # top-left: editor
+        - cdhc && clear # bottom-left: empty shell
+        - cdhc && claude # right: claude
+
+  - honeycomb-web:
+      layout: *repo_layout
+      panes:
+        - cdhcw && nvim
+        - cdhcw && clear
+        - cdhcw && claude
+
+  - socotra:
+      layout: *repo_layout
+      panes:
+        - cdsoc && nvim
+        - cdsoc && clear
+        - cdsoc && claude
+
+  - analytics:
+      layout: *repo_layout
+      panes:
+        - cdhca && nvim
+        - cdhca && clear
+        - cdhca && claude
+
+  - salesforce:
+      layout: *repo_layout
+      panes:
+        - cdsf && nvim
+        - cdsf && clear
+        - cdsf && claude
+
+  - emails:
+      layout: *repo_layout
+      panes:
+        - cdem && nvim
+        - cdem && clear
+        - cdem && claude
+
+  - config:
+      layout: *repo_layout
+      panes:
+        - cddotfiles && nvim
+        - cddotfiles && clear
+        - cddotfiles && claude
