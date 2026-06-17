@@ -36,6 +36,30 @@ return {
         desc = "Diffview (working tree)",
       },
       { "<leader>gD", "<cmd>DiffviewFileHistory %<cr>", desc = "Diffview file history (file)" },
+      {
+        "<leader>gm",
+        function()
+          -- Resolve the repo's default branch (main vs master) rather than
+          -- hardcoding it, so this works across repos.
+          local function default_branch()
+            -- origin/HEAD points at the remote default branch when it's set.
+            local head = vim.fn.systemlist({ "git", "symbolic-ref", "--short", "refs/remotes/origin/HEAD" })[1]
+            if vim.v.shell_error == 0 and head then
+              return (head:gsub("^origin/", ""))
+            end
+            -- Fallback: whichever of main/master exists locally.
+            for _, b in ipairs({ "main", "master" }) do
+              vim.fn.system({ "git", "rev-parse", "--verify", "--quiet", b })
+              if vim.v.shell_error == 0 then
+                return b
+              end
+            end
+            return "main"
+          end
+          vim.cmd("DiffviewOpen " .. default_branch() .. "...HEAD")
+        end,
+        desc = "Diff vs default branch",
+      },
     },
     opts = {
       enhanced_diff_hl = true,
