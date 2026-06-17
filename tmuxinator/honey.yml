@@ -42,46 +42,46 @@ windows:
       panes:
         - cdhc && nvim # top-left: editor
         - cdhc && clear # bottom-left: empty shell
-        - cdhc && claude # right: claude
+        - cdhc && claude --permission-mode auto # right: claude
 
   - honeycomb-web:
       layout: *repo_layout
       panes:
         - cdhcw && nvim
         - cdhcw && clear
-        - cdhcw && claude
+        - cdhcw && claude --permission-mode auto
 
   - socotra:
       layout: *repo_layout
       panes:
         - cdsoc && nvim
         - cdsoc && clear
-        - cdsoc && claude
+        - cdsoc && claude --permission-mode auto
 
   - analytics:
       layout: *repo_layout
       panes:
         - cdhca && nvim
         - cdhca && clear
-        - cdhca && claude
+        - cdhca && claude --permission-mode auto
 
   - salesforce:
       layout: *repo_layout
       panes:
         - cdsf && nvim
         - cdsf && clear
-        - cdsf && claude
+        - cdsf && claude --permission-mode auto
 
   - emails:
       layout: *repo_layout
       panes:
         - cdem && nvim
         - cdem && clear
-        - cdem && claude
+        - cdem && claude --permission-mode auto
 
   - config:
       layout: *repo_layout
       panes:
         - cddotfiles && nvim
         - cddotfiles && clear
-        - cddotfiles && claude
+        - cddotfiles && claude --permission-mode auto
