@@ -82,6 +82,32 @@ return {
       --   }
       inlay_hints = { enabled = false },
       servers = {
+        vtsls = {
+          settings = {
+            typescript = {
+              tsserver = {
+                -- Raise the V8 old-space cap above vtsls's 3072 MB default.
+                -- This repo has NO TS project references, so one tsserver holds
+                -- several full Programs at once; the include-less e2e-portal
+                -- tsconfig alone pulls ~1.6 GB (globs the AWS SDK via e2e-utils),
+                -- and the combined webapp+e2e-portal working set crosses 3072
+                -- -> V8 OOM -> crash/reinit loop. 6144 restores the headroom an
+                -- uncapped server (e.g. ts_ls on node default) effectively had.
+                maxTsServerMemory = 6144,
+              },
+            },
+          },
+          -- Keep file-watching INSIDE tsserver, not the Neovim client. vtsls
+          -- delegates watching to the client by default; Neovim 0.11 then
+          -- recursively watches the whole monorepo (incl. node_modules, no
+          -- excludes), pegging editor CPU. dynamicRegistration=false reverts to
+          -- tsserver's in-process watching (as ts_ls did). No effect on TS speed.
+          -- capabilities = {
+          --   workspace = {
+          --     didChangeWatchedFiles = { dynamicRegistration = false },
+          --   },
+          -- },
+        },
         -- yamlls: teach yaml-language-server CloudFormation's intrinsic-function
         -- short tags so they stop showing up as "Unresolved tag: !Ref". This is
         -- purely additive tolerance — it does NOT give CFN-aware validation (for
