@@ -18,12 +18,13 @@ If you finish a change and nothing in the docs is now wrong or missing, say so e
 
 ## Deployment model: manual symlinks, not a manager
 
-Configs are **not** copied or managed by a stow/chezmoi-style tool. Each config is expected to be symlinked from this repo into its standard location. There is no master list of symlinks; instead, **the header comment of each ported config documents its own target**, e.g.:
+Configs are **not** copied or managed by a stow/chezmoi-style tool. Each config is expected to be symlinked from this repo into its standard location. There is no master list of symlinks; instead, **the header comment of each ported config documents its own target** (JSON configs like `ccstatusline/` and `vscode/` can't carry a comment, so their targets are listed here), e.g.:
 
 - `tmux/tmux.conf` → `~/.config/tmux/tmux.conf` (the conf reloads via `source-file ~/.config/tmux/tmux.conf`, and tmuxinator reads from `~/.config/tmuxinator/`). tmux uses the XDG path `~/.config/tmux/`, **not** `~/.tmux.conf`.
 - `ghostty/config.ghostty` → `~/.config/ghostty/config` — **Ghostty's real config file has no extension**; the `.ghostty` suffix here is only so the repo file is recognizable.
 - `alacritty/alacritty.toml` → `~/.config/alacritty/alacritty.toml`.
 - `starship.toml` → `~/.config/starship.toml`; `yazi/*` → `~/.config/yazi/`; `tmuxinator/*.yml` → `~/.config/tmuxinator/`.
+- `ccstatusline/settings.json` → `~/.config/ccstatusline/settings.json` — config for the `ccstatusline` Claude Code status line (model / context-length / usage / cost widgets). It only takes effect because **Claude Code's own `~/.claude/settings.json` points `statusLine.command` at the `ccstatusline` binary** — that wiring, and the binary itself (a pinned npm global, see README), live outside this repo.
 
 When editing a config, check its header comment for the canonical symlink command before assuming a path.
 
@@ -50,4 +51,4 @@ These two are tightly coupled and are the most intricate part of the repo:
 
 ## Theming note
 
-There is no single shared theme: tmux uses tokyonight-storm accents, `starship.toml` uses a gruvbox palette, the terminals (`ghostty`, `alacritty`) carry a VS Code-dark ANSI palette ported from iTerm2, and `yazi` defaults to tokyo-night (`yazi/theme.toml`, with flavors vendored under `yazi/flavors/` and pinned in `yazi/package.toml`). Match the theme of the tool you're editing rather than assuming a repo-wide palette.
+There is no single shared theme: tmux uses tokyonight-storm accents, `starship.toml` uses a gruvbox palette, the terminals (`ghostty`, `alacritty`) carry a VS Code-dark ANSI palette ported from iTerm2, `yazi` defaults to tokyo-night (`yazi/theme.toml`, with flavors vendored under `yazi/flavors/` and pinned in `yazi/package.toml`), and `ccstatusline` overrides its widget foreground with a `gradient:retro` (per-widget ANSI colors set in `ccstatusline/settings.json`). Match the theme of the tool you're editing rather than assuming a repo-wide palette.

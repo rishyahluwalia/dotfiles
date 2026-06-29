@@ -14,6 +14,7 @@ Personal macOS dotfiles. Each top-level directory holds one tool's config, deplo
 | `alacritty/`            | Alacritty    | Alternate terminal emulator.                                               |
 | `yazi/`                 | Yazi         | Terminal file manager.                                                     |
 | `vscode/`               | VS Code      | `settings.json` + `keybindings.json`.                                      |
+| `ccstatusline/`         | ccstatusline | Claude Code status line — model / context / usage / cost widgets.          |
 
 ## Install external dependencies
 
@@ -29,6 +30,9 @@ gem install tmuxinator                 # or: brew install tmuxinator
 brew install neovim git ripgrep fd     # rg + fd power LazyVim's pickers
 brew install lazygit                   # optional, used by the git UI
 brew install --cask font-jetbrains-mono-nerd-font   # the font the terminals expect
+
+# Claude Code status line (npm global; pinned to match ccstatusline/settings.json)
+npm install -g ccstatusline@2.2.22
 ```
 
 LazyVim also wants a C compiler + `make` (for `nvim-treesitter`) — these come with the Xcode Command Line Tools (`xcode-select --install`). Language servers/formatters are installed on demand by Mason inside Neovim; many need `node`/`npm` on your `PATH`.
@@ -48,6 +52,7 @@ ln -sfn "$DOTFILES/yazi"        ~/.config/yazi
 ln -sfn "$DOTFILES/tmuxinator"  ~/.config/tmuxinator
 ln -sfn  "$DOTFILES/alacritty"  ~/.config/alacritty
 ln -sfn  "$DOTFILES/ghostty"    ~/.config/ghostty
+ln -sfn "$DOTFILES/ccstatusline" ~/.config/ccstatusline   # Claude Code status line config
 
 # Single-file configs
 ln -sf  "$DOTFILES/starship.toml" ~/.config/starship.toml
@@ -58,4 +63,4 @@ ln -sf "$DOTFILES/vscode/vscode-settings.json"    "$VSCODE/settings.json"
 ln -sf "$DOTFILES/vscode/vscode-keybindings.json" "$VSCODE/keybindings.json"
 ```
 
-Then point Starship at its config in your shell rc (`eval "$(starship init zsh)"`) and reload tmux with `prefix` + `r`.
+Then point Starship at its config in your shell rc (`eval "$(starship init zsh)"`) and reload tmux with `prefix` + `r`. For the status line, point Claude Code at the binary in `~/.claude/settings.json` (`"statusLine": { "type": "command", "command": "ccstatusline" }`).

@@ -1,0 +1,61 @@
+{
+  "version": 3,
+  "lines": [
+    [
+      {
+        "id": "b99ebc09-0c8f-4844-b7fc-abf639ba4677",
+        "type": "model",
+        "color": "brightMagenta"
+      },
+      {
+        "id": "1",
+        "type": "thinking-effort",
+        "color": "cyan"
+      },
+      {
+        "id": "3",
+        "type": "context-length",
+        "color": "green"
+      },
+      {
+        "id": "5",
+        "type": "session-usage",
+        "color": "yellow"
+      },
+      {
+        "id": "7",
+        "type": "session-cost",
+        "color": "brightRed"
+      }
+    ],
+    [],
+    []
+  ],
+  "flexMode": "full-minus-40",
+  "compactThreshold": 60,
+  "colorLevel": 2,
+  "defaultPadding": " ",
+  "inheritSeparatorColors": false,
+  "overrideForegroundColor": "gradient:retro",
+  "globalBold": false,
+  "gitCacheTtlSeconds": 5,
+  "minimalistMode": false,
+  "powerline": {
+    "enabled": false,
+    "separators": [
+      ""
+    ],
+    "separatorInvertBackground": [
+      false
+    ],
+    "startCaps": [],
+    "endCaps": [],
+    "theme": "nord-aurora",
+    "autoAlign": false,
+    "continueThemeAcrossLines": false
+  },
+  "installation": {
+    "method": "pinned",
+    "installedVersion": "2.2.22"
+  }
+}
