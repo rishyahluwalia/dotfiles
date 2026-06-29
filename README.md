@@ -42,7 +42,7 @@ LazyVim also wants a C compiler + `make` (for `nvim-treesitter`) — these come 
 There is **no setup script.** Symlink each config into place (adjust the repo path if you cloned elsewhere — these assume `~/code/personal/dotfiles`):
 
 ```sh
-DOTFILES=~/code/personal/dotfiles
+DOTFILES=~/code/dotfiles
 mkdir -p ~/.config/ghostty
 
 # Neovim, tmux, yazi: symlink the whole directory
