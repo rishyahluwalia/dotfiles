@@ -6,6 +6,11 @@
 --      double-formatting. Single-config repos are unaffected — the non-matching
 --      formatter is skipped by its own config check, so conform falls through to
 --      the one that applies.
+--      NOTE: conform's `biome-check` builtin has a `cwd` root-marker for
+--      biome.json but NO `require_cwd`, so on its own it runs EVERYWHERE biome
+--      is installed (using Biome's built-in tab/double-quote defaults), even in
+--      prettier-only repos. We add `require_cwd = true` below so it is skipped
+--      when no biome.json is found — that's what makes the fall-through work.
 --   2. Salesforce Apex (.cls/.trigger/.apex) formats via the project's local
 --      prettier + prettier-plugin-apex, through a dedicated `apex_prettier`
 --      formatter that bypasses LazyVim's prettier parser-gate (which reports no
@@ -32,6 +37,11 @@ return {
 
       local util = require("conform.util")
       opts.formatters = opts.formatters or {}
+      -- Gate biome-check on a biome.json. Its builtin has a biome.json `cwd`
+      -- marker but no `require_cwd`, so without this it runs (with Biome's
+      -- default tab/double-quote style) in prettier-only repos and wins the
+      -- stop_after_first race before prettier gets a look in.
+      opts.formatters["biome-check"] = { require_cwd = true }
       opts.formatters.apex_prettier = {
         command = util.from_node_modules("prettier"),
         args = { "--stdin-filepath", "$FILENAME" },
