@@ -1,0 +1,44 @@
+# /Users/rishy/.config/tmuxinator/main.yml
+# Start with: tmuxinator start main
+#
+# Every repo window (and "config") uses this 3-pane layout:
+#
+#   ┌──────────────┬────────┐
+#   │ nvim         │        │
+#   ├──────────────┤ claude │   right pane = full height
+#   │ (empty shell)│        │
+#   └──────────────┴────────┘
+#
+# The geometry lives in one raw tmux layout string (tmuxinator supports no
+# percentages/nested panes — only this or the 5 named layouts). It's defined
+# once below as the `&repo_layout` anchor and reused via `*repo_layout`, so to
+# retune sizes you change it in ONE place. To regenerate it: open a window, drag
+# the panes to taste, then run:
+#     tmux display-message -p '#{window_layout}'
+# and paste the result (including the leading checksum) here.
+#
+# Panes map to the layout cells in order: 0 = top-left, 1 = bottom-left, 2 = right.
+
+name: main
+root: ~/
+
+# Focus this window on startup instead of the first one.
+# By name rather than index so it follows
+# the window if the list is reordered.
+startup_window: zsh
+
+windows:
+  # Standard vertical (left | right) split.
+  - config:
+      layout: &repo_layout "ca21,269x61,0,0{169x61,0,0[169x46,0,0,2,169x14,0,47,34],99x61,170,0,8}"
+      panes:
+        - cddotfiles && nvim
+        - cddotfiles && clear
+        - cddotfiles && claude --permission-mode auto
+
+  - zsh:
+      layout: *repo_layout
+      panes:
+        - ~ # top-left: editor
+        - ~ # bottom-left: empty shell
+        - ~ # right: claude
