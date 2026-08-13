@@ -19,7 +19,7 @@ LazyVim auto-loads three config files (do not `require` them yourself):
 - `lua/config/keymaps.lua` — loaded on `VeryLazy`. Extends LazyVim's default keymaps.
 - `lua/config/autocmds.lua` — loaded on `VeryLazy`. Remove a LazyVim default autocmd via `vim.api.nvim_del_augroup_by_name("lazyvim_<name>")`.
 
-`lazyvim.json` records enabled LazyVim **extras** (currently `coding.mini-surround`, `formatting.prettier`, `lang.java`, `lang.kotlin`, `lang.python`, `lang.typescript`, `lang.typescript.biome`, `linting.eslint`); manage these with `:LazyExtras`, not by hand-editing. `lazy-lock.json` pins every plugin commit and is committed — update it with `:Lazy sync`/`:Lazy update`.
+`lazyvim.json` records enabled LazyVim **extras** (currently `coding.mini-surround`, `formatting.biome`, `formatting.prettier`, `lang.java`, `lang.kotlin`, `lang.python`, `lang.typescript`, `linting.eslint`); manage these with `:LazyExtras`, not by hand-editing. `lazy-lock.json` pins every plugin commit and is committed — update it with `:Lazy sync`/`:Lazy update`.
 
 ## Editing plugins
 
